@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nordwear</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="min-h-screen bg-white text-neutral-900">
+    <p class="bg-neutral-900 py-2 text-center text-xs text-white">
+      Fri frakt när du handlar för minst 500 kr
+    </p>
+
+    <header class="border-b border-neutral-200">
+      <div
+        class="mx-auto flex max-w-6xl items-center justify-between gap-4 p-4"
+      >
+        <h1 class="text-2xl font-black tracking-tight">NORDWEAR</h1>
+        <div class="flex gap-4 text-sm">
+          <p>♡ Önskelista (<span id="favorites-count">0</span>)</p>
+          <p>🛍 Varukorg (<span id="cart-count">0</span>)</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="mx-auto grid max-w-6xl gap-8 p-4 lg:grid-cols-[1fr_300px]">
+      <section>
+        <div class="mb-6 grid gap-3 sm:grid-cols-3">
+          <input
+            id="search-input"
+            type="search"
+            placeholder="Sök produkt"
+            class="rounded-md border border-neutral-300 p-2 text-sm"
+          />
+          <select
+            id="category-select"
+            class="rounded-md border border-neutral-300 p-2 text-sm"
+          >
+            <option value="alla">Alla kategorier</option>
+            <option value="Kläder">Kläder</option>
+            <option value="Skor">Skor</option>
+            <option value="Accessoarer">Accessoarer</option>
+          </select>
+          <select
+            id="sort-select"
+            class="rounded-md border border-neutral-300 p-2 text-sm"
+          >
+            <option value="standard">Populärast</option>
+            <option value="pris-stigande">Lägsta pris först</option>
+            <option value="pris-fallande">Högsta pris först</option>
+            <option value="namn">Namn A–Ö</option>
+          </select>
+        </div>
+
+        <p id="product-count" class="mb-3 text-sm text-neutral-500"></p>
+        <div
+          id="product-list"
+          class="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3"
+        ></div>
+      </section>
+
+      <aside class="space-y-6">
+        <section class="rounded-lg border border-neutral-200 p-4">
+          <h2 class="mb-4 font-bold">Varukorg</h2>
+          <ul id="cart-list" class="space-y-4">
+            <li class="text-sm text-neutral-500">Varukorgen är tom.</li>
+          </ul>
+          <dl
+            id="cart-summary"
+            class="mt-4 space-y-1 border-t border-neutral-200 pt-4 text-sm"
+          ></dl>
+          <p id="free-shipping-message"></p>
+
+          <form
+            id="discount-form"
+            class="mt-4 border-t border-neutral-200 pt-4"
+          >
+            <label for="discount-input" class="text-sm font-semibold"
+              >Rabattkod</label
+            >
+            <div class="mt-1 flex gap-2">
+              <input
+                id="discount-input"
+                type="text"
+                class="w-full rounded-md border border-neutral-300 p-2 text-sm"
+              />
+              <button
+                class="rounded-md bg-neutral-900 px-3 text-sm font-semibold text-white"
+              >
+                Använd
+              </button>
+            </div>
+            <p id="discount-message" class="mt-2 text-sm"></p>
+          </form>
+        </section>
+
+        <section class="rounded-lg border border-neutral-200 p-4">
+          <h2 class="mb-4 font-bold">Önskelista</h2>
+          <ul id="favorites-list" class="space-y-3">
+            <li class="text-sm text-neutral-500">Inga sparade produkter än.</li>
+          </ul>
+        </section>
+      </aside>
+    </main>
+
+    <script type="module" src="script.js"></script>
+  </body>
+</html>

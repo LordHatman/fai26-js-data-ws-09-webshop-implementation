@@ -1,0 +1,12 @@
+[
+  {
+    "code": "VINTER10",
+    "percent": 10,
+    "minTotal": 0
+  },
+  {
+    "code": "STUDENT15",
+    "percent": 15,
+    "minTotal": 500
+  }
+]

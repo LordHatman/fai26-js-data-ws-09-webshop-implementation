@@ -1,0 +1,110 @@
+[
+  {
+    "id": 1,
+    "name": "Basic t-shirt",
+    "brand": "Nordwear",
+    "category": "Kläder",
+    "color": "Vit",
+    "price": 149,
+    "emoji": "👕"
+  },
+  {
+    "id": 2,
+    "name": "Collegetröja",
+    "brand": "Urban Line",
+    "category": "Kläder",
+    "color": "Grå",
+    "price": 399,
+    "emoji": "👚"
+  },
+  {
+    "id": 3,
+    "name": "Slim fit jeans",
+    "brand": "Nordwear",
+    "category": "Kläder",
+    "color": "Mörkblå",
+    "price": 599,
+    "emoji": "👖"
+  },
+  {
+    "id": 4,
+    "name": "Vinterjacka",
+    "brand": "Fjällvind",
+    "category": "Kläder",
+    "color": "Svart",
+    "price": 1499,
+    "emoji": "🧥"
+  },
+  {
+    "id": 5,
+    "name": "Linneshorts",
+    "brand": "Nordwear",
+    "category": "Kläder",
+    "color": "Beige",
+    "price": 299,
+    "emoji": "🩳"
+  },
+  {
+    "id": 6,
+    "name": "Klänning med knappar",
+    "brand": "Urban Line",
+    "category": "Kläder",
+    "color": "Grön",
+    "price": 549,
+    "emoji": "👗"
+  },
+  {
+    "id": 7,
+    "name": "Vita sneakers",
+    "brand": "Stride",
+    "category": "Skor",
+    "color": "Vit",
+    "price": 899,
+    "emoji": "👟"
+  },
+  {
+    "id": 8,
+    "name": "Kängor i läder",
+    "brand": "Fjällvind",
+    "category": "Skor",
+    "color": "Brun",
+    "price": 1299,
+    "emoji": "🥾"
+  },
+  {
+    "id": 9,
+    "name": "Keps",
+    "brand": "Urban Line",
+    "category": "Accessoarer",
+    "color": "Svart",
+    "price": 199,
+    "emoji": "🧢"
+  },
+  {
+    "id": 10,
+    "name": "Ryggsäck",
+    "brand": "Fjällvind",
+    "category": "Accessoarer",
+    "color": "Olivgrön",
+    "price": 699,
+    "emoji": "🎒"
+  },
+  {
+    "id": 11,
+    "name": "Halsduk i ull",
+    "brand": "Nordwear",
+    "category": "Accessoarer",
+    "color": "Röd",
+    "price": 249,
+    "emoji": "🧣"
+  },
+  {
+    "id": 12,
+    "name": "Strumpor 5-pack",
+    "brand": "Nordwear",
+    "category": "Accessoarer",
+    "color": "Blandade",
+    "price": 129,
+    "emoji": "🧦"
+  }
+]
