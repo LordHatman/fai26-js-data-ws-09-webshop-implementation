@@ -62,6 +62,9 @@ let activeDiscountCode = null;
 
 //funktion 1: Kunden väljer en annan sortering - vi ändrar ordningen och uppdaterar sidan
 
+//Test fraktberäkning
+console.log(getShipping(298));
+console.log(getShipping(599));
 // ---------- Det som händer när sidan laddas ----------
 
 showProducts(products, favorites);
