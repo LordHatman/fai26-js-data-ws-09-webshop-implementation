@@ -57,6 +57,9 @@ let activeDiscountCode = null;
 
 // Här bygger vi.
 
+// funktion: Kund lägger till vara i varukorgen - sidan uppdateras.
+//identifiera vart funktionen addtocart bäst ska implementeras.
+
 //funktion 1: Kunden väljer en annan sortering - vi ändrar ordningen och uppdaterar sidan
 
 // ---------- Det som händer när sidan laddas ----------
