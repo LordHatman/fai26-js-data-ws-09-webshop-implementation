@@ -59,6 +59,12 @@ let activeDiscountCode = null;
 
 // Funktion: Kunden lägger till en vara i varukorgen.
 
+// ---------- Våra funktioner ----------
+
+// TODO 1: Lägg till produkter i varukorgen.
+// Använd findProduct och addToCart.
+// Uppdatera varukorg, antal, totalsumma och frakt.
+
 onButtonClick("add-to-cart", (productId) => {
   const product = findProduct(products, productId);
 
@@ -69,7 +75,116 @@ onButtonClick("add-to-cart", (productId) => {
     showCartCount(getItemCount(cart));
   }
 });
-//identifiera vart funktionen addtocart bäst ska implementeras.
+
+// TODO 2: Ändra antal och ta bort produkter.
+// Hantera knapparna increase, decrease och remove.
+// Skapa updateCart() för att uppdatera varukorgen efter varje ändring.
+
+// Öka antalet med 1
+onButtonClick("increase", (productId) => {
+  const product = findProduct(products, productId);
+  cart = addToCart(cart, product);
+
+  showCart(cart);
+  showCartCount(getItemCount(cart));
+  showCartSummary(getCartTotal(cart), 0, getShipping(getCartTotal(cart)));
+});
+
+// Minska antalet med 1
+onButtonClick("decrease", (productId) => {
+  cart = decreaseQuantity(cart, productId);
+
+  showCart(cart);
+  showCartCount(getItemCount(cart));
+  showCartSummary(getCartTotal(cart), 0, getShipping(getCartTotal(cart)));
+});
+
+// Ta bort produkten
+onButtonClick("remove", (productId) => {
+  cart = removeFromCart(cart, productId);
+
+  showCart(cart);
+  showCartCount(getItemCount(cart));
+  showCartSummary(getCartTotal(cart), 0, getShipping(getCartTotal(cart)));
+});
+
+// TODO 3: Sök, filtrera och sortera produkter.
+// Kombinera kategori, söktext och sortering.
+// Uppdatera produktlistan när användaren ändrar något.
+
+// Sök produkter
+onSearchInput(() => {
+  const filtered = filterByCategory(products, getSelectedCategory());
+  const searched = searchProducts(filtered, getSearchText());
+  const sorted = sortProducts(searched, getSelectedSort());
+
+  showProducts(sorted, favorites);
+});
+
+// Filtrera efter kategori
+onCategoryChange(() => {
+  const filtered = filterByCategory(products, getSelectedCategory());
+  const searched = searchProducts(filtered, getSearchText());
+  const sorted = sortProducts(searched, getSelectedSort());
+
+  showProducts(sorted, favorites);
+});
+
+// Sortera produkter
+onSortChange(() => {
+  const filtered = filterByCategory(products, getSelectedCategory());
+  const searched = searchProducts(filtered, getSearchText());
+  const sorted = sortProducts(searched, getSelectedSort());
+
+  showProducts(sorted, favorites);
+});
+
+// TODO 4: Hantera rabattkoder.
+// Kontrollera koden och visa felmeddelande vid ogiltig kod.
+// Spara giltig kod i activeDiscountCode.
+// Räkna om rabatten när varukorgen ändras.
+
+onDiscountSubmit((typedText) => {
+  const discountCode = findDiscountCode(discountCodes, typedText);
+
+  if (discountCode === undefined) {
+    showDiscountMessage("Rabattkoden finns inte.", true);
+    return;
+  }
+
+  activeDiscountCode = discountCode;
+
+  const total = getCartTotal(cart);
+  const discount = getDiscountAmount(total, activeDiscountCode);
+  const shipping = getShipping(total);
+
+  if (total < discountCode.minTotal) {
+    showDiscountMessage("Varukorgens summa är för låg för rabattkoden.", true);
+  } else {
+    showDiscountMessage("Rabattkoden har lagts till.", false);
+  }
+
+  showCartSummary(total, discount, shipping);
+});
+
+// TODO 5: Hantera önskelistan.
+// Lägg till och ta bort favoriter med toggleFavorite.
+// Uppdatera hjärtan, önskelista och antal.
+// Koppla önskelistans Köp-knapp till varukorgen.
+
+onButtonClick("favorite", (productId) => {
+  favorites = toggleFavorite(favorites, productId);
+
+  const favoriteProducts = getFavoriteProducts(products, favorites);
+
+  showFavorites(favoriteProducts);
+
+  const filtered = filterByCategory(products, getSelectedCategory());
+  const searched = searchProducts(filtered, getSearchText());
+  const sorted = sortProducts(searched, getSelectedSort());
+
+  showProducts(sorted, favorites);
+});
 
 //funktion 1: Kunden väljer en annan sortering - vi ändrar ordningen och uppdaterar sidan
 
