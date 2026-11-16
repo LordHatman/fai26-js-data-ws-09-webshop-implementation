@@ -57,7 +57,18 @@ let activeDiscountCode = null;
 
 // Här bygger vi.
 
-// funktion: Kund lägger till vara i varukorgen - sidan uppdateras.
+// Funktion: Kunden lägger till en vara i varukorgen.
+
+onButtonClick("add-to-cart", (productId) => {
+  const product = findProduct(products, productId);
+
+  if (product !== undefined) {
+    cart = addToCart(cart, product);
+
+    showCart(cart);
+    showCartCount(getItemCount(cart));
+  }
+});
 //identifiera vart funktionen addtocart bäst ska implementeras.
 
 //funktion 1: Kunden väljer en annan sortering - vi ändrar ordningen och uppdaterar sidan
