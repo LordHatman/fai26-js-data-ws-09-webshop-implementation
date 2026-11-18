@@ -52,14 +52,10 @@ let favorites = [];
 
 // Rabattkoden som kunden har använt. null betyder att ingen kod är använd än.
 let activeDiscountCode = null;
-
+// ---------- Våra funktioner ----------
 // ---------- Våra funktioner ----------
 
 // Här bygger vi.
-
-// Funktion: Kunden lägger till en vara i varukorgen.
-
-// ---------- Våra funktioner ----------
 
 // TODO 1: Lägg till produkter i varukorgen.
 // Använd findProduct och addToCart.
@@ -71,41 +67,73 @@ onButtonClick("add-to-cart", (productId) => {
   if (product !== undefined) {
     cart = addToCart(cart, product);
 
+    const total = getCartTotal(cart);
+
     showCart(cart);
     showCartCount(getItemCount(cart));
+    showCartSummary(
+      total,
+      getDiscountAmount(total, activeDiscountCode),
+      getShipping(total),
+    );
+    showFreeShippingMessage(getAmountLeftForFreeShipping(total));
   }
 });
 
 // TODO 2: Ändra antal och ta bort produkter.
 // Hantera knapparna increase, decrease och remove.
-// Skapa updateCart() för att uppdatera varukorgen efter varje ändring.
+// Använd befintliga hjälpfunktioner för att uppdatera varukorgen.
 
 // Öka antalet med 1
 onButtonClick("increase", (productId) => {
   const product = findProduct(products, productId);
-  cart = addToCart(cart, product);
 
-  showCart(cart);
-  showCartCount(getItemCount(cart));
-  showCartSummary(getCartTotal(cart), 0, getShipping(getCartTotal(cart)));
+  if (product !== undefined) {
+    cart = addToCart(cart, product);
+
+    const total = getCartTotal(cart);
+
+    showCart(cart);
+    showCartCount(getItemCount(cart));
+    showCartSummary(
+      total,
+      getDiscountAmount(total, activeDiscountCode),
+      getShipping(total),
+    );
+    showFreeShippingMessage(getAmountLeftForFreeShipping(total));
+  }
 });
 
 // Minska antalet med 1
 onButtonClick("decrease", (productId) => {
   cart = decreaseQuantity(cart, productId);
 
+  const total = getCartTotal(cart);
+
   showCart(cart);
   showCartCount(getItemCount(cart));
-  showCartSummary(getCartTotal(cart), 0, getShipping(getCartTotal(cart)));
+  showCartSummary(
+    total,
+    getDiscountAmount(total, activeDiscountCode),
+    getShipping(total),
+  );
+  showFreeShippingMessage(getAmountLeftForFreeShipping(total));
 });
 
 // Ta bort produkten
 onButtonClick("remove", (productId) => {
   cart = removeFromCart(cart, productId);
 
+  const total = getCartTotal(cart);
+
   showCart(cart);
   showCartCount(getItemCount(cart));
-  showCartSummary(getCartTotal(cart), 0, getShipping(getCartTotal(cart)));
+  showCartSummary(
+    total,
+    getDiscountAmount(total, activeDiscountCode),
+    getShipping(total),
+  );
+  showFreeShippingMessage(getAmountLeftForFreeShipping(total));
 });
 
 // TODO 3: Sök, filtrera och sortera produkter.
@@ -113,17 +141,17 @@ onButtonClick("remove", (productId) => {
 // Uppdatera produktlistan när användaren ändrar något.
 
 // Sök produkter
-onSearchInput(() => {
+onSearchInput((searchText) => {
   const filtered = filterByCategory(products, getSelectedCategory());
-  const searched = searchProducts(filtered, getSearchText());
+  const searched = searchProducts(filtered, searchText);
   const sorted = sortProducts(searched, getSelectedSort());
 
   showProducts(sorted, favorites);
 });
 
 // Filtrera efter kategori
-onCategoryChange(() => {
-  const filtered = filterByCategory(products, getSelectedCategory());
+onCategoryChange((category) => {
+  const filtered = filterByCategory(products, category);
   const searched = searchProducts(filtered, getSearchText());
   const sorted = sortProducts(searched, getSelectedSort());
 
@@ -131,10 +159,10 @@ onCategoryChange(() => {
 });
 
 // Sortera produkter
-onSortChange(() => {
+onSortChange((sortValue) => {
   const filtered = filterByCategory(products, getSelectedCategory());
   const searched = searchProducts(filtered, getSearchText());
-  const sorted = sortProducts(searched, getSelectedSort());
+  const sorted = sortProducts(searched, sortValue);
 
   showProducts(sorted, favorites);
 });
@@ -158,8 +186,11 @@ onDiscountSubmit((typedText) => {
   const discount = getDiscountAmount(total, activeDiscountCode);
   const shipping = getShipping(total);
 
-  if (total < discountCode.minTotal) {
-    showDiscountMessage("Varukorgens summa är för låg för rabattkoden.", true);
+  if (discount === 0) {
+    showDiscountMessage(
+      "Rabattkoden har hittats, men den ger 0 kr rabatt på nuvarande summa.",
+      false,
+    );
   } else {
     showDiscountMessage("Rabattkoden har lagts till.", false);
   }
@@ -186,14 +217,24 @@ onButtonClick("favorite", (productId) => {
   showProducts(sorted, favorites);
 });
 
-//funktion 1: Kunden väljer en annan sortering - vi ändrar ordningen och uppdaterar sidan
+// Funktion 1: Kunden väljer en annan sortering - vi ändrar ordningen och uppdaterar sidan.
+// Hanteras ovan i TODO 3.
 
-//Test fraktberäkning
+// Test fraktberäkning
 console.log(getShipping(298));
 console.log(getShipping(599));
+
 // ---------- Det som händer när sidan laddas ----------
 
 showProducts(products, favorites);
 showCart(cart);
-showCartSummary(0, 0, 0);
-showFavorites([]);
+showCartCount(getItemCount(cart));
+
+const total = getCartTotal(cart);
+showCartSummary(
+  total,
+  getDiscountAmount(total, activeDiscountCode),
+  getShipping(total),
+);
+
+showFavorites(getFavoriteProducts(products, favorites));
